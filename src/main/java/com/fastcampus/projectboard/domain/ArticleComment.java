@@ -1,8 +1,6 @@
 package com.fastcampus.projectboard.domain;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -11,43 +9,31 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.LinkedHashSet;
 import java.util.Objects;
-import java.util.Set;
 
 @Getter //lombok이용해서 게터
 @ToString
 //@EqualsAndHashCode // 이방법은 lombok을 이용한 방법 모든 필드를 비교함
 @Table(indexes = {
-        @Index(columnList = "title"),
-        @Index(columnList = "hashtag"),
+        @Index(columnList = "content"),
         @Index(columnList = "createdAt"),
         @Index(columnList = "createdBy")
 })
 @EntityListeners(AuditingEntityListener.class)  //Auditing사용하기위해서 붙여야함
+//@NoArgsConstructor(access = AccessLevel.PROTECTED) // 아래 기본생성자와 동일
 @Entity
-public class Article {
+public class ArticleComment {
+
     @Id
     // 자동증가를 해주기위한 애너테이션
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-
     @Setter
-    @Column(nullable = false)
-    private String title;   // 제목
+    @ManyToOne(optional = false)    // cascade는 디폴트값이 논
+    private Article article;    //게시글 (id)
     @Setter
-    @Column(nullable = false, length = 10000)
-    private String content; //  본문
-
-    @Setter private String hashtag; // 해시태그
-
-    @OrderBy("id")
-    @OneToMany(mappedBy = "article",cascade = CascadeType.ALL)
-    @ToString.Exclude
-    // 이 변수 때문에 무한루프 걸릴수 있으니 toString에서 제외해줌
-    // 중복을 허용x , 모아서 보여주겟다
-    private final Set<ArticleComment> articleCommnets = new LinkedHashSet<>();
+    @Column(nullable = false, length = 500)
+    private String content; // 본문
 
     // 메타데이터랑 구분을 줘서
     // jpa auditing이용
@@ -65,33 +51,29 @@ public class Article {
     @Column(nullable = false, length = 100)
     private String modifiedBy;  // 수정자
 
-    protected Article(){}
+    protected ArticleComment(){}
 
-    // 생성할때 직접적으로 생성하는 것을 맡고 팩토리 메소드를 이용함
-    private Article(String title, String content, String hashtag) {
-        this.title = title;
+    private ArticleComment(Article article, String content) {
+        this.article = article;
         this.content = content;
-        this.hashtag = hashtag;
     }
 
-    public static Article of(String title, String content, String hashtag){
-        return new Article(title,content,hashtag);
+    private ArticleComment of(Article article, String content) {
+        return new ArticleComment(article,content);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        // Java14 Patten matching
-        // 넘어온 Object값이 Article인지 확인하고 바로 값을 적용
-        if (!(o instanceof Article article)) return false;
-        // id가 널값인지 까지 확인
-        // id가 부여되지않았다 = 영속화가 되지 않았다 그럼 검사할 필요가 없으니까
-        return id != null && Objects.equals(id, article.id);
+        if (!(o instanceof ArticleComment that)) return false;
+        return id != null && Objects.equals(id, that.id);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id);
     }
+
+
 
 }
