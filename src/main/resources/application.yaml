@@ -1,3 +1,4 @@
+
 debug: false  #??? ?? ??????
 management.endpoints.web.exposure.include: "*"  #?????? ????? ???
 
@@ -23,9 +24,9 @@ spring:
       hibernate.default_batch_fetch_size: 100
 #  h2.console.enable: false # ????
   sql.init.mode: always
-#  data.rest:
-#    base-path: /api
-#    detection-strategy: annotated
+  data.rest:
+    base-path: /api
+    detection-strategy: annotated
 #  thymeleaf3.decoupled-logic: true
 #  security:
 #    oauth2:
