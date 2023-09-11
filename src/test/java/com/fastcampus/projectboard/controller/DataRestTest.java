@@ -1,5 +1,6 @@
 package com.fastcampus.projectboard.controller;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@Disabled("불필요하므로 제거")
+// 직접 만들어서 테스트한게 아니라 주어진 기능을 쓴거기 때문에 불필요
 @DisplayName("Data REST Api Test")
 //인테그래션 테스트 이므로 DB에 영향을 줘서 트랜잭션 애너테이션 넣음
 @Transactional  // 테스트에서 동작하는 모든 행위가 rollback이 디폴트값
