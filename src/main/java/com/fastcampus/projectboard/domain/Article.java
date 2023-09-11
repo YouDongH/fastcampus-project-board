@@ -24,9 +24,9 @@ import java.util.Set;
         @Index(columnList = "createdAt"),
         @Index(columnList = "createdBy")
 })
-@EntityListeners(AuditingEntityListener.class)  //Auditing사용하기위해서 붙여야함
+//@EntityListeners(AuditingEntityListener.class)  //Auditing사용하기위해서 붙여야함
 @Entity
-public class Article {
+public class Article extends AuditingFields {
     @Id
     // 자동증가를 해주기위한 애너테이션
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,21 +49,22 @@ public class Article {
     // 중복을 허용x , 모아서 보여주겟다
     private final Set<ArticleComment> articleCommnets = new LinkedHashSet<>();
 
+    // 공통부분을 상속받는걸로 처리
     // 메타데이터랑 구분을 줘서
     // jpa auditing이용
     // 자동으로 Auditing됨
-    @CreatedDate
-    @Column(nullable = false)
-    private LocalDateTime createdAt;    //생성일
-    @CreatedBy
-    @Column(nullable = false, length = 100)
-    private String createdBy;   // 생성자
-    @LastModifiedDate
-    @Column(nullable = false)
-    private LocalDateTime modifiedAt;   // 수정일
-    @LastModifiedBy
-    @Column(nullable = false, length = 100)
-    private String modifiedBy;  // 수정자
+//    @CreatedDate
+//    @Column(nullable = false)
+//    private LocalDateTime createdAt;    //생성일
+//    @CreatedBy
+//    @Column(nullable = false, length = 100)
+//    private String createdBy;   // 생성자
+//    @LastModifiedDate
+//    @Column(nullable = false)
+//    private LocalDateTime modifiedAt;   // 수정일
+//    @LastModifiedBy
+//    @Column(nullable = false, length = 100)
+//    private String modifiedBy;  // 수정자
 
     protected Article(){}
 
