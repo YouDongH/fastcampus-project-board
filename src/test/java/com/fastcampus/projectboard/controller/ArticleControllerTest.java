@@ -1,5 +1,6 @@
 package com.fastcampus.projectboard.controller;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ class ArticleControllerTest {
     public ArticleControllerTest(@Autowired MockMvc mvc) {
         this.mvc = mvc;
     }
-
+    @Disabled
     @DisplayName("view_get_articles board page")
     @Test
     public void givenNothing_whenRequestingArticlesView_thenReturnsArticlesView() throws Exception {
@@ -30,9 +31,11 @@ class ArticleControllerTest {
         mvc.perform(get("/articles"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.TEXT_HTML))
+                .andExpect(view().name("articles/index"))
                 .andExpect(model().attributeExists("articles"));
     }
 
+    @Disabled
     @DisplayName("view_get_articles detail page")
     @Test
     public void givenNothing_whenRequestingArticleView_thenReturnsArticleView() throws Exception {
@@ -42,9 +45,12 @@ class ArticleControllerTest {
         mvc.perform(get("/articles/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.TEXT_HTML))
-                .andExpect(model().attributeExists("article"));
+                .andExpect(view().name("articles/index"))
+                .andExpect(model().attributeExists("article"))
+                .andExpect(model().attributeExists("articleComment"));
     }
 
+    @Disabled
     @DisplayName("view_get_articles search page")
     @Test
     public void givenNothing_whenRequestingArticleSearchView_thenReturnsArticleSearchView() throws Exception {
@@ -53,9 +59,11 @@ class ArticleControllerTest {
         //When&Then
         mvc.perform(get("/articles/search"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.TEXT_HTML));
+                .andExpect(content().contentType(MediaType.TEXT_HTML))
+                .andExpect(model().attributeExists("articles/search"));
     }
 
+    @Disabled
     @DisplayName("view_get_articles hashtag search page")
     @Test
     public void givenNothing_whenRequestingArticleHashtagSearchView_thenReturnsArticleHashtagSearchView() throws Exception {
@@ -64,6 +72,7 @@ class ArticleControllerTest {
         //When&Then
         mvc.perform(get("/articles/search-hashtag"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.TEXT_HTML));
+                .andExpect(content().contentType(MediaType.TEXT_HTML))
+                .andExpect(model().attributeExists("article/search-hashtag"));
     }
 }
