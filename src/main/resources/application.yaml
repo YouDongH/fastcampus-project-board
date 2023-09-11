@@ -21,7 +21,7 @@ spring:
     properties:
       hibernate.format_sql: true
       hibernate.default_batch_fetch_size: 100
-  h2.console.enable: true # ????
+#  h2.console.enable: false # ????
   sql.init.mode: always
 #  data.rest:
 #    base-path: /api
@@ -44,6 +44,8 @@ spring:
 #            user-info-uri: https://kapi.kakao.com/v2/user/me
 #            user-name-attribute: id
 #
+server:
+  port: 80
 --- # ??? ????????!
 
 # ?????

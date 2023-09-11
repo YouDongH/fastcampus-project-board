@@ -19,10 +19,9 @@ import java.util.Objects;
         @Index(columnList = "createdAt"),
         @Index(columnList = "createdBy")
 })
-@EntityListeners(AuditingEntityListener.class)  //Auditing사용하기위해서 붙여야함
 //@NoArgsConstructor(access = AccessLevel.PROTECTED) // 아래 기본생성자와 동일
 @Entity
-public class ArticleComment {
+public class ArticleComment extends AuditingFields{
 
     @Id
     // 자동증가를 해주기위한 애너테이션
@@ -34,22 +33,6 @@ public class ArticleComment {
     @Setter
     @Column(nullable = false, length = 500)
     private String content; // 본문
-
-    // 메타데이터랑 구분을 줘서
-    // jpa auditing이용
-    // 자동으로 Auditing됨
-    @CreatedDate
-    @Column(nullable = false)
-    private LocalDateTime createdAt;    //생성일
-    @CreatedBy
-    @Column(nullable = false, length = 100)
-    private String createdBy;   // 생성자
-    @LastModifiedDate
-    @Column(nullable = false)
-    private LocalDateTime modifiedAt;   // 수정일
-    @LastModifiedBy
-    @Column(nullable = false, length = 100)
-    private String modifiedBy;  // 수정자
 
     protected ArticleComment(){}
 
