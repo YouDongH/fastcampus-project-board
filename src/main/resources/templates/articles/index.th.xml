@@ -3,4 +3,16 @@
     <!--   연결시켜주는얘 : attr -->
     <attr sel="#header" th:replace= "header :: header"/>
     <attr sel="#footer" th:replace= "footer :: footer"/>
+
+    <attr sel="#article-table">
+<!--        첫번째 줄 제외하고 없앰 : 아래 값들로 대체하기위해서-->
+        <attr sel="tbody" th:remove="all-but-first">
+            <attr sel="tr[0]" th:each="article:${articles}">
+                <attr sel="td.title/a" th:text="${article.title}" th:href="@{'/article/'+${article.id}}"/>
+                <attr sel="td.hashtag" th:text="${article.hashtag}"/>
+                <attr sel="td.user-id" th:text="${article.nickname}"/>
+                <attr sel="td.created-by/time" th:datetime="${article.createAt}" th:text="${#temporals.format(article.createdAt,'yyyy-MM-dd')}"/>
+            </attr>
+        </attr>
+    </attr>
 </thlogic>

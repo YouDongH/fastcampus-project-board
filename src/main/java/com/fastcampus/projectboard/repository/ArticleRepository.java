@@ -3,20 +3,26 @@ package com.fastcampus.projectboard.repository;
 import com.fastcampus.projectboard.domain.Article;
 import com.fastcampus.projectboard.domain.QArticle;
 import com.querydsl.core.types.dsl.DateTimeExpression;
-import com.querydsl.core.types.dsl.SimpleExpression;
 import com.querydsl.core.types.dsl.StringExpression;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
 import org.springframework.data.querydsl.binding.QuerydslBindings;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
-import org.springframework.stereotype.Repository;
 
 @RepositoryRestResource // rest repo 이용하기위해
 public interface ArticleRepository extends
         JpaRepository<Article, Long>,
         QuerydslPredicateExecutor<Article>, // 엔티티안에있는 모든 필드에 대해 기본 검색기능 추가
         QuerydslBinderCustomizer<QArticle> {
+
+        Page<Article> findByTitleContaining(String title, Pageable pageable);
+        Page<Article> findByContentContaining(String content, Pageable pageable);
+        Page<Article> findByUserAccount_UserIdContaining(String userId, Pageable pageable);
+        Page<Article> findByHashtag(String title, Pageable pageable);
+        Page<Article> findByUserAccount_NicknameContaining(String nickname, Pageable pageable);
 
     // Inteface에서 구현 안되나 이런식으로 가능
     @Override

@@ -6,10 +6,10 @@ import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 
 @ConfigurationPropertiesScan	// ConfigurationProperties 직접 만들었을 때는 이 애너테이션 필요
 @SpringBootApplication
-public class FastCampusProjectBoardApplication {
+public class FastcampusProjectBoardApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(FastCampusProjectBoardApplication.class, args);
+		SpringApplication.run(FastcampusProjectBoardApplication.class, args);
 	}
 
 }
