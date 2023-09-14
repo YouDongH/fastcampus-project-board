@@ -23,21 +23,21 @@ public record ArticleWithCommentsDto(
         return new ArticleWithCommentsDto(id, userAccountDto, articleCommentDtos, title, content, hashtag, createdAt, createdBy, modifiedAt, modifiedBy);
     }
 //
-//    public static ArticleWithCommentsDto from(Article entity) {
-//        return new ArticleWithCommentsDto(
-//                entity.getId(),
-//                UserAccountDto.from(entity.getUserAccount()),
-//                entity.getArticleComments().stream()
-//                        .map(ArticleCommentDto::from)
-//                        .collect(Collectors.toCollection(LinkedHashSet::new)),
-//                entity.getTitle(),
-//                entity.getContent(),
-//                entity.getHashtag(),
-//                entity.getCreatedAt(),
-//                entity.getCreatedBy(),
-//                entity.getModifiedAt(),
-//                entity.getModifiedBy()
-//        );
-//    }
+    public static ArticleWithCommentsDto from(Article entity) {
+        return new ArticleWithCommentsDto(
+                entity.getId(),
+                UserAccountDto.from(entity.getUserAccount()),
+                entity.getArticleComments().stream()
+                        .map(ArticleCommentDto::from)
+                        .collect(Collectors.toCollection(LinkedHashSet::new)),
+                entity.getTitle(),
+                entity.getContent(),
+                entity.getHashtag(),
+                entity.getCreatedAt(),
+                entity.getCreatedBy(),
+                entity.getModifiedAt(),
+                entity.getModifiedBy()
+        );
+    }
 
 }
