@@ -4,7 +4,6 @@ import com.fastcampus.projectboard.dto.ArticleCommentDto;
 import com.fastcampus.projectboard.repository.ArticleCommentRepository;
 import com.fastcampus.projectboard.repository.ArticleRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,8 +17,17 @@ public class ArticleCommentService {
     private final ArticleCommentRepository articleCommentRepository;
     private final ArticleRepository articleRepository;
 
-    @Transactional
-    public List<ArticleCommentDto> searchArticleComment(Long articleId) {
+    @Transactional(readOnly = true) // 조회만하니까
+    public List<ArticleCommentDto> searchArticleComments(Long articleId) {
         return List.of();
+    }
+
+    public void saveArticleComment(ArticleCommentDto dto) {
+
+    }
+    public void updateArticleComment(ArticleCommentDto dto) {
+    }
+
+    public void deleteArticleComment(Long articleCommentId) {
     }
 }
