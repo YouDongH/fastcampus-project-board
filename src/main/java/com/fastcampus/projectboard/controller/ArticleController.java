@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @RequiredArgsConstructor    // 생성자 만들어주는 애너테이션
+// 매핑수정
 @RequestMapping("/articles")
 @Controller
 public class ArticleController {
@@ -46,6 +47,8 @@ public class ArticleController {
         ArticleWithCommentsResponse article = ArticleWithCommentsResponse.from(articleService.getArticle(articleId));
         map.addAttribute("article", article);
         map.addAttribute("articleComments", article.articleCommentsResponses());
+        // 추가 예정코드
+        map.addAttribute("totalCount", articleService.getArticleCount());
 
         return "articles/detail";
     }
