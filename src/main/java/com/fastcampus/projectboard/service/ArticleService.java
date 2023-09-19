@@ -69,4 +69,9 @@ public class ArticleService {
     public void deleteArticle(long articleId) {
         articleRepository.deleteById(articleId);
     }
+
+    //추가 예정부분
+    public long getArticleCount() {
+        return articleRepository.count();
+    }
 }
