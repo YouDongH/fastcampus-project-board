@@ -21,15 +21,15 @@
         <div class="row">
             <div class="card card-margin search-form">
                 <div class="card-body p-0">
-                    <form id="search-form">
+                    <form action="/articles" method="get" id="search-form">
                         <div class="row">
                             <div class="col-12">
                                 <div class="row no-gutters">
                                     <div class="col-lg-3 col-md-3 col-sm-12 p-0">
                                         <label for="search-type" hidden>검색 유형</label>
                                         <select class="form-control" id="search-type" name="searchType">
-                                            <option>제목</option>
-                                            <option>본문</option>
+                                            <option>TITLE</option>
+                                            <option>content</option>
                                             <option>id</option>
                                             <option>닉네임</option>
                                             <option>해시태그</option>
@@ -54,20 +54,6 @@
                 </div>
             </div>
         </div>
-<!--        <form action="">-->
-<!--            <label for="search-type" hidden>유형</label>-->
-<!--                <select id="search-type" name="search-type">-->
-<!--                    <option>제목</option>-->
-<!--                    <option>본문</option>-->
-<!--                    <option>ID</option>-->
-<!--                    <option>닉네임</option>-->
-<!--                    <option>해시태그</option>-->
-<!--                </select>-->
-
-<!--            <label for="search-value" hidden>검색어</label>-->
-<!--            <input id="search-value" type="search" placeholder="검색어..." name="search-value">-->
-<!--            <button type="submit">검색</button>-->
-<!--        </form>-->
 
         <table class="table" id="article-table">
             <thead>
@@ -85,25 +71,6 @@
                     <td class="user-id">Dong</td>
                     <td class="created-at"><time>2022-01-26</time></td>
                 </tr>
-                <tr>
-                    <td>둘글</td>
-                    <td>#spring</td>
-                    <td>Dong</td>
-                    <td>2022-07-26</td>
-                </tr>
-                <tr>
-                    <td>셋글</td>
-                    <td>#python</td>
-                    <td>Dong</td>
-                    <td>2022-03-26</td>
-                </tr>
-                <tr>
-                    <td>넷글</td>
-                    <td>#java</td>
-                    <td>Dong</td>
-                    <td>2022-01-26</td>
-                </tr>
-
             </tbody>
 
         </table>
