@@ -9,7 +9,11 @@
         <attr sel="#nickname" th:text="*{nickname}" />
         <attr sel="#email" th:text="*{email}" />
         <attr sel="#created-at" th:datetime="*{createdAt}" th:text="*{#temporals.format(createdAt, 'yyyy-MM-dd HH:mm:ss')}" />
-        <attr sel="#hashtag" th:each="hashtag : ${article.hashtags}"/>
+<!--        <attr sel="#hashtag" th:each="hashtag : ${articles.hashtags}"/>-->
+<!--        TODO: 해시태그 부분에서 안됨, 해시태그 부분강의 들을때 해결하기
+                  에러 예상으로는 반복이 도는데 이상하게 도는 듯
+                  에러 내용으로는 detail.html을 못불러옴 해시태그반복부분때문에
+-->
         <attr sel="#article-content/pre" th:text="*{content}" />
     </attr>
 
