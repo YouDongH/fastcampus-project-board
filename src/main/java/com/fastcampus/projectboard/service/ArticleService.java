@@ -1,9 +1,11 @@
 package com.fastcampus.projectboard.service;
 
 import com.fastcampus.projectboard.domain.Article;
+import com.fastcampus.projectboard.domain.UserAccount;
 import com.fastcampus.projectboard.dto.ArticleDto;
 import com.fastcampus.projectboard.dto.ArticleWithCommentsDto;
 import com.fastcampus.projectboard.repository.ArticleRepository;
+import com.fastcampus.projectboard.repository.UserAccountRepository;
 import com.fastcampus.projectboard.type.SearchType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +24,7 @@ import java.util.List;
 public class ArticleService {
 
     private final ArticleRepository articleRepository;
+    private final UserAccountRepository userAccountRepository;
 
     @Transactional(readOnly = true) // 읽기만하므로 읽기 단위로 트랜잭션검
     // Page클래스안에 페이징정보와 정렬기능이 있음 - 따로 메소드x 페이지단위로 받아옴
@@ -49,7 +52,9 @@ public class ArticleService {
     }
 
     public void saveArticle(ArticleDto dto){
-        articleRepository.save(dto.toEntity());
+        // domain변경에서 다른 변동사항 있을듯
+        UserAccount userAccount = userAccountRepository.getReferenceById(dto.userAccountDto().id());
+        articleRepository.save(dto.toEntity(userAccount));
     }
 
     public void updateArticle(ArticleDto dto) {
