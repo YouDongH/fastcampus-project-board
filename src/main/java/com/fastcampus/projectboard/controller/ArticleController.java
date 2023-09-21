@@ -1,5 +1,7 @@
 package com.fastcampus.projectboard.controller;
 
+import com.fastcampus.projectboard.dto.UserAccountDto;
+import com.fastcampus.projectboard.dto.request.ArticleRequest;
 import com.fastcampus.projectboard.dto.response.ArticleResponse;
 import com.fastcampus.projectboard.dto.response.ArticleWithCommentsResponse;
 import com.fastcampus.projectboard.service.ArticleService;
@@ -12,10 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -69,6 +68,14 @@ public class ArticleController {
         map.addAttribute("paginationBarNumbers",barNumbers);
         map.addAttribute("searchType",SearchType.HASHTAG);
         return "articles/search-hashtag";
+    }
+
+    // 게시글 쓰기기능
+    @PostMapping("/form")
+    public String postNewArticle(ArticleRequest articleRequest){
+        // TODO: 인증정보가 들어가야함
+        articleService.saveArticle(articleRequest.toDto(UserAccountDto.of()));
+
     }
 
 }
