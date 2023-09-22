@@ -21,6 +21,7 @@ public record ArticleDto(
         LocalDateTime modifiedAt,
         String modifiedBy
 ) {
+    // 입력시 게시글 날짜 정보를 넣지않아도 입력가능하게 dto변경
     public static ArticleDto of(UserAccountDto userAccountDto, String title, String content, String hashtag) {
         return new ArticleDto(null, userAccountDto, title, content, hashtag, null, null, null, null);
     }
