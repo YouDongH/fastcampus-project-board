@@ -14,7 +14,7 @@ public class ArticleCommentController {
 
     private final ArticleCommentService articleCommentService;
 
-    @PostMapping("/new")
-    public String postNewArticle
+//    @PostMapping("/new")
+//    public String postNewArticle
 
 }
