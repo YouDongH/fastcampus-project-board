@@ -91,4 +91,19 @@ public class ArticleController {
         return "redirect:/articles";
     }
 
+    // 글 수정폼
+    @PostMapping("/{articleId}/form")
+    public String updateArticle(@PathVariable Long articleId){
+        return "redirect:/articles/"+articleId;
+    }
+
+    // 글 삭제
+    @PostMapping("/{articleId}/delete")
+    public String deleteArticle(@PathVariable Long articleId){
+        // TODO: 인증 정보를 넣어줘야 한다.
+        articleService.deleteArticle(articleId);
+
+        return "redirect:/articles";
+    }
+
 }
