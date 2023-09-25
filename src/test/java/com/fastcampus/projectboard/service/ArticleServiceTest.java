@@ -6,7 +6,7 @@ import com.fastcampus.projectboard.dto.ArticleDto;
 import com.fastcampus.projectboard.dto.ArticleWithCommentsDto;
 import com.fastcampus.projectboard.dto.UserAccountDto;
 import com.fastcampus.projectboard.repository.ArticleRepository;
-import com.fastcampus.projectboard.type.SearchType;
+import com.fastcampus.projectboard.domain.constant.SearchType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -123,7 +123,7 @@ class ArticleServiceTest {
         given(articleRepository.findById(articleId)).willReturn(Optional.of(article));
 
         // When
-        ArticleWithCommentsDto dto = sut.getArticle(articleId);
+        ArticleWithCommentsDto dto = sut.getArticleWithComments(articleId);
 
         // Then
         assertThat(dto)
@@ -140,7 +140,7 @@ class ArticleServiceTest {
         given(articleRepository.findById(articleId)).willReturn(Optional.empty());
 
         // When
-        Throwable t = catchThrowable(() -> sut.getArticle(articleId));
+        Throwable t = catchThrowable(() -> sut.getArticleWithComments(articleId));
 
         // Then
         assertThat(t)
@@ -171,7 +171,7 @@ class ArticleServiceTest {
         given(articleRepository.getReferenceById(dto.id())).willReturn(article);
 
         // When
-        sut.updateArticle(dto);
+        sut.updateArticle(dto.id(),dto);
 
         // Then
         assertThat(article)
@@ -189,7 +189,7 @@ class ArticleServiceTest {
         given(articleRepository.getReferenceById(dto.id())).willThrow(EntityNotFoundException.class);
 
         // When
-        sut.updateArticle(dto);
+        sut.updateArticle(dto.id(),dto);
 
         // Then
         then(articleRepository).should().getReferenceById(dto.id());
