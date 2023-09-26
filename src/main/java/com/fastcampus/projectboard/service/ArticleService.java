@@ -69,20 +69,24 @@ public class ArticleService {
         try {
             // dto의 id로 접근대신 매개변수로 articleId를 받아서
             Article article = articleRepository.getReferenceById(articleId);
-            if (dto.title() != null) article.setTitle(dto.title());
-            if (dto.content() != null) article.setContent(dto.content());
-            article.setHashtag(dto.hashtag());
+            UserAccount userAccount = userAccountRepository.getReferenceById(dto.userAccountDto().userId());
+
+            if (article.getUserAccount().equals(userAccount)) {
+                    if (dto.title() != null) article.setTitle(dto.title());
+                    if (dto.content() != null) article.setContent(dto.content());
+                    article.setHashtag(dto.hashtag());
+            }
 //        articleRepository.save(article);
             // @Transactional에 의해 묶여잇으므로
             // save코드가 없어도 변경을 감지해서 update를 해줌
         }
         catch (EntityNotFoundException e){
-            log.warn("게시글 업데이트 실패. 게시글이 없어요 dto: {} ",dto);
+            log.warn("게시글 업데이트 실패. 게시글이 없어요 dto: {} ",e.getLocalizedMessage());
         }
     }
 
-    public void deleteArticle(long articleId) {
-        articleRepository.deleteById(articleId);
+    public void deleteArticle(long articleId, String userId) {
+        articleRepository.deleteByIdAndUserAccount_UserId(articleId,userId);
     }
 
     //추가 예정부분
