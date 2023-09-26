@@ -8,11 +8,16 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.domain.AuditorAware;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.*;
 //@ActiveProfiles("testdb")
 //@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)    // test.database.replace: none
 @DisplayName("JPA 연결 테스트")
-@Import(JpaConfig.class)    // Auditing을 위해서
+@Import(JpaRepositoryTest.TestJpaConfig.class)    // Auditing을 위해서
 @DataJpaTest
 // JpaTest는 각 메소드마다 메소드단위로 트랜잭션이 걸려있음 , 테스트 트랜잭션은 디폴트가 디폴트
 //@AutoConfigureTestDatabase
@@ -59,7 +64,7 @@ class JpaRepositoryTest {
         // Then
         assertThat(articles)
                 .isNotNull()
-                .hasSize(0);
+                .hasSize(123);
     }
 
     @DisplayName("insert테스트")
@@ -101,6 +106,16 @@ class JpaRepositoryTest {
 
         // Then
         assertThat(savedArticle).hasFieldOrPropertyWithValue("hashtag",updatedHashtag);
+    }
+
+    // Auditing 할때 시큐리티 무시하게 동작하게만듬
+    @EnableJpaAuditing
+    @TestConfiguration
+    public static class TestJpaConfig{
+        @Bean
+        public AuditorAware<String> auditorAware(){
+            return ()-> Optional.of("test");
+        }
     }
 //    @DisplayName("delete 테스트")
 //    @Test
