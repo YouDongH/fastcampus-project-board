@@ -54,26 +54,33 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <table class="table" id="article-table">
+                <thead>
+                    <tr>
+                        <th class="title col-6"><a href="">제목</a></th>
+                        <th class="hashtag col-3"><a href="">해시태그</a></th>
+                        <th class="user-id col"><a href="">작성자</a></th>
+                        <th class="created-at col"><a href="">작성일</a></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="title"><a></a>첫글</td>
+                        <td class="hashtag">#java</td>
+                        <td class="user-id">Dong</td>
+                        <td class="created-at"><time>2022-01-26</time></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-        <table class="table" id="article-table">
-            <thead>
-                <tr>
-                    <th class="title col-6"><a href="">제목</a></th>
-                    <th class="hashtag col-3"><a href="">해시태그</a></th>
-                    <th class="user-id col"><a href="">작성자</a></th>
-                    <th class="created-at col"><a href="">작성일</a></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="title"><a></a>첫글</td>
-                    <td class="hashtag">#java</td>
-                    <td class="user-id">Dong</td>
-                    <td class="created-at"><time>2022-01-26</time></td>
-                </tr>
-            </tbody>
-
-        </table>
+        <div class="row">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <a class="btn btn-primary me-md-2" role="button" id="write-article">글쓰기</a>
+            </div>
+        </div>
+        <div class="row">
             <nav id="pagination" aria-label="Page navigation example">
                 <ul class="pagination justify-content-center">
                     <li class="page-item"><a class="page-link" href="#">Previous</a></li>
@@ -81,19 +88,7 @@
                     <li class="page-item"><a class="page-link" href="#">Next</a></li>
                 </ul>
             </nav>
-
-<!--        <nav>-->
-<!--            <table>-->
-<!--                <tr>-->
-<!--                    <td>previous</td>-->
-<!--                    <td>1</td>-->
-<!--                    <td>2</td>-->
-<!--                    <td>3</td>-->
-<!--                    <td>4</td>-->
-<!--                    <td>next</td>-->
-<!--                </tr>-->
-<!--            </table>-->
-<!--        </nav>-->
+        </div>
     </main>
     <footer id="footer">
         footer 삽입부

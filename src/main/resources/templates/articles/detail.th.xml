@@ -15,12 +15,13 @@
                   에러 내용으로는 detail.html을 못불러옴 해시태그반복부분때문에
 -->
         <attr sel="#article-content/pre" th:text="*{content}" />
-    </attr>
 
-    <attr sel="#article-buttons">
-        <attr sel="#delete-article-form" th:action="'/articles/' + *{id} + '/delete'" th:method="post">
-            <attr sel="#update-article" th:href="'/articles/' + *{id} + '/form'" />
+        <attr sel="#article-buttons" th:if="${#authorization.expression('isAuthenticated()')} and *{userId} == ${#authentication.name}">
+            <attr sel="#delete-article-form" th:action="'/articles/' + *{id} + '/delete'" th:method="post">
+                <attr sel="#update-article" th:href="'/articles/' + *{id} + '/form'" />
+            </attr>
         </attr>
+
     </attr>
 
     <attr sel=".article-id" th:name="articleId" th:value="*{id}" />
@@ -34,6 +35,7 @@
                 <attr sel="div/strong" th:text="${articleComment.nickname}" />
                 <attr sel="div/small/time" th:datetime="${articleComment.createdAt}" th:text="${#temporals.format(articleComment.createdAt, 'yyyy-MM-dd HH:mm:ss')}" />
                 <attr sel="div/p" th:text="${articleComment.content}" />
+                <attr sel="button" th:if="${#authorization.expression('isAuthenticated()')} and ${articleComment.userId} == ${#authentication.name}" />
             </attr>
         </attr>
     </attr>
